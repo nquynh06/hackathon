@@ -8,7 +8,7 @@ interface TaskFieldEditorProps {
 }
 
 const predefinedOptions: Record<string, string[]> = {
-  taskType: ["Bug", "Feature", "Research"],
+  taskType: ["Study", "Work", "Life"],
   status: ["Todo", "In Progress", "Done"],
   priority: ["Low", "Medium", "High"],
 };
@@ -49,14 +49,14 @@ const TaskFieldEditor: React.FC<TaskFieldEditorProps> = ({
           onSave(e.target.value);
         }}
         autoFocus
-        className="border px-2 py-1 rounded bg-[#242424] text-white"
+        className="border px-2 py-1 rounded bg-[#141821] text-white"
       />
     );
   }
 
   if (field === "taskType" || field === "status" || field === "priority") {
     return (
-      <div className="absolute bg-black border shadow p-2 rounded z-10 w-48">
+      <div className="absolute bg-[#141821] border border-gray-900 shadow-2xl rounded-2xl z-20 min-w-[140px] py-3 px-3 flex flex-col gap-2" style={{maxHeight: 'none', overflow: 'visible'}}>
         {/* Ô input thêm nhãn mới */}
         <input
           type="text"
@@ -64,7 +64,7 @@ const TaskFieldEditor: React.FC<TaskFieldEditorProps> = ({
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={handleAdd}
-          className="border px-2 py-1 mb-2 w-full rounded text-black"
+          className="border-2 border-gray-400 bg-[#222] text-black px-3 py-2 mb-2 w-full rounded-xl focus:border-green-500 outline-none placeholder-gray-500"
         />
 
         {/* Hiển thị các label */}
@@ -76,10 +76,9 @@ const TaskFieldEditor: React.FC<TaskFieldEditorProps> = ({
                 setSelected(opt);
                 onSave(opt);
               }}
-              className={`px-2 py-1 rounded cursor-pointer ${
+              className={`px-4 py-2 rounded-xl cursor-pointer font-semibold flex items-center gap-2 mx-1 ${
                 selected === opt
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-300 text-black"
+                  ? "bg-[#03C73C] text-black" : "bg-gray-700 text-gray-100"
               }`}
             >
               {opt}
@@ -90,7 +89,7 @@ const TaskFieldEditor: React.FC<TaskFieldEditorProps> = ({
         <div className="flex justify-end mt-2 gap-2">
           <button
             onClick={onCancel}
-            className="bg-gray-400 text-black px-2 py-1 rounded"
+            className="bg-gray-400 text-black font-bold px-4 py-2 rounded-xl shadow"
           >
             Cancel
           </button>
@@ -106,7 +105,7 @@ const TaskFieldEditor: React.FC<TaskFieldEditorProps> = ({
       onChange={(e) => setSelected(e.target.value)}
       onBlur={() => onSave(selected)}
       autoFocus
-      className="border px-2 py-1 rounded bg-[#242424] text-white"
+      className="border px-2 py-1 rounded bg-[#141821] text-white"
     />
   );
 };

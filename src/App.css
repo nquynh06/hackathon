@@ -1,25 +1,83 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Label chip style for mood/status/priority, etc. */
+@import "tailwindcss/preflight";
+@import "tailwindcss/theme";
+@import "tailwindcss/utilities";
 
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #1a1a2e;
+  font-family: -apple-system, BlinkMAacSystemFont, 'Segoe UI', sans-serif;
+  background: #141821;
   color: white;
 }
 
+
 .container {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   padding: 0 8%;
+}
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 0 2%;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .logo {
+    max-width: 350px;
+  }
+  .graphic {
+    width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .logo {
+    max-width: 220px;
+  }
+  .graphic {
+    width: 180px;
+  }
+  .hello {
+    font-size: 1.5rem;
+  }
+  .subtitle {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 0.5%;
+  }
+  .logo {
+    max-width: 120px;
+  }
+  .graphic {
+    width: 90px;
+  }
+  .hello {
+    font-size: 1.1rem;
+  }
+  .subtitle {
+    font-size: 0.8rem;
+  }
+  .label-chip {
+    font-size: 0.8rem;
+    padding: 0.15rem 0.5rem;
+    margin-right: 0.25rem;
+    margin-bottom: 0.15rem;
+  }
 }
 
 .content {
@@ -53,3 +111,92 @@ body {
   width: 500px;
   height: auto;
 }
+
+.label-chip {
+  display: inline-block;
+  border-radius: 9999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: var(--chip-bg, #eee);
+  color: var(--chip-color, #222);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  margin-right: 0.5rem;
+  margin-bottom: 0.25rem;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+/* Status labels */
+.label-chip.status-todo {
+  border: 1px solid #7F8CFF;
+  background-color: rgba(127, 140, 255, 0.2); 
+  color: #7F8CFF;
+}
+.label-chip.status-in-progress {
+  border: 1px solid #49D2CF;
+  background-color: rgba(73, 210, 207, 0.2);
+  color: #49D2CF;
+}
+.label-chip.status-done {
+  border: 1px solid #FF8C42;
+  background-color: rgba(255, 140, 66, 0.2);
+  color: #FF8C42;
+}
+
+/* Priority labels */
+.label-chip.priority-high {
+  border: 1px solid #F85149;
+  background-color: rgba(248, 81, 73, 0.2);
+  color: #F85149;
+}
+.label-chip.priority-medium {
+  border: 1px solid #DB61A2;
+  background-color: rgba(219, 97, 162, 0.2);
+  color: #DB61A2;
+}
+.label-chip.priority-low {
+  border: 1px solid #AB7DF8;
+  background-color: rgba(171, 125, 248, 0.2);
+  color: #AB7DF8;
+}
+
+/* Mood labels */
+.label-chip.mood-happy {
+  border: 1px solid #e2ed10;
+  background-color: rgba(226, 237, 16, 0.2);
+  color: #e2ed10;
+}
+.label-chip.mood-calm {
+  border: 1px solid #6366f1;
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #6366f1;
+}
+.label-chip.mood-stressed {
+  border: 1px solid #f30000;
+  background-color: rgba(243, 0, 0, 0.2);
+  color: #f30000;
+}
+.label-chip.mood-motivated {
+  border: 1px solid #1ce544;
+  background-color: rgba(28, 229, 68, 0.2);
+  color: #1ce544;
+}
+
+/* TaskType labels */
+.label-chip.tasktype-study {
+  border: 1px solid #5c81fd;
+  background-color: rgba(92, 129, 253, 0.2);
+  color: #5c81fd;
+}
+.label-chip.tasktype-work {
+  border: 1px solid #AB7DF8;
+  background-color: rgba(171, 125, 248, 0.2);
+  color: #AB7DF8;
+}
+.label-chip.tasktype-life {
+  border: 1px solid #FDC700;
+  background-color: rgba(253, 199, 0, 0.2);
+  color: #FDC700;
+}
+

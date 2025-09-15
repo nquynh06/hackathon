@@ -41,7 +41,6 @@ const TableView: React.FC = () => {
 
   return (
     <div>
-      <h2 className="text-xl font-bold mb-4">Task Table</h2>
       <TaskFilter
         value={filter}
         onChange={setFilter}
@@ -49,12 +48,16 @@ const TableView: React.FC = () => {
         priorityOptions={priorityOptions}
         taskTypeOptions={taskTypeOptions}
       />
+      <div className="overflow-x-auto hide-scrollbar">
+        <div className="min-w-[1440px]">
       <TaskTable
         tasks={filteredTasks}
         onUpdateTask={handleUpdateTask}
         onDeleteTask={handleDeleteTask}
         onAddTask={handleAddTask}
       />
+      </div>
+      </div>
     </div>
   );
 };

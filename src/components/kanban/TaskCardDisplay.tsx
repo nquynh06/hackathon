@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import type { Task } from "/workspaces/hackathon/src/types/index.ts";
-import TaskCard from "./TaskCard";
+import type { Task } from "../../types/index.ts";
 
 type Props = {
   task: Task;
@@ -8,12 +7,20 @@ type Props = {
   onSave: (updated: Partial<Task>) => void;
 };
 
-const TaskCardDisplay: React.FC<Props> = ({ task, onDelete, onSave }) => {
+const isDueOrOverdue = (dueDate?: string) => {
+  if (!dueDate) return false;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const due = new Date(dueDate);
+  due.setHours(0, 0, 0, 0);
+  return due <= today;
+};
+
+const TaskCardDisplay: React.FC<Props> = ({ task, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [hover, setHover] = useState(false);
 
   if (isEditing) {
-    // Không dùng nữa, logic edit đã chuyển sang BoardContainer
     return null;
   }
 
@@ -24,7 +31,15 @@ const TaskCardDisplay: React.FC<Props> = ({ task, onDelete, onSave }) => {
       onMouseLeave={() => setHover(false)}
     >
       <p className="font-medium">{task.title}</p>
-      {task.dueDate && <p className="text-xs text-gray-500">Due: {task.dueDate}</p>}
+      {task.dueDate && (
+        <p
+          className={`text-xs ${
+            isDueOrOverdue(task.dueDate) ? "text-red-500 font-bold" : "text-gray-500"
+          }`}
+        >
+          Due: {task.dueDate}
+        </p>
+      )}
       <p className="text-xs text-gray-600">{task.priority} • {task.taskType}</p>
 
       {hover && (

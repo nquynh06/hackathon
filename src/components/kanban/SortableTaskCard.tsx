@@ -1,25 +1,37 @@
+import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import type { Task } from "../../types/index.ts";
 import TaskCard from "./TaskCard";
-import type { Task } from "/workspaces/hackathon/src/types/index.ts";
 
-const SortableTaskCard: React.FC<{
-  card: Task;
-  deleteCard: (id: string) => void;
-  onEdit: (c: Task) => void;
-}> = ({ card, deleteCard, onEdit }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: card.id });
+type Props = {
+  task: Task;
+  onDelete?: () => void;
+  onEdit?: () => void;
+  onSave?: (data: Partial<Task>) => void;
+};
+
+const SortableTaskCard: React.FC<Props> = ({ task, onDelete, onEdit, onSave }) => {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({ id: task.id });
 
   const style: React.CSSProperties = {
     transform: CSS.Transform.toString(transform),
     transition,
-    opacity: isDragging ? 0.5 : 1,
-    zIndex: isDragging ? 9999 : "auto",
+    cursor: "grab",
+    touchAction: "none",
+    opacity: isDragging ? 0 : 1, 
   };
 
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <TaskCard card={card} deleteCard={deleteCard} onEdit={onEdit} />
+      <TaskCard
+        task={task}
+        editable={false}
+        onDelete={onDelete}
+        onEdit={onEdit}
+        onSave={onSave ? onSave : () => {}}
+      />
     </div>
   );
 };
